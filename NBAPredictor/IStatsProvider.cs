@@ -5,6 +5,6 @@ namespace NBAPredictor
 {
     public interface IStatsProvider
     {
-        Task<Dictionary<string, object>[]> GetStats();
+        Task<Dictionary<string, object>[]> GetStatsAsync();
     }
 }

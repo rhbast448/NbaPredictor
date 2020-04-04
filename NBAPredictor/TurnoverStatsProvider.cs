@@ -14,7 +14,7 @@ namespace NBAPredictor
         public TurnoverStatsProvider(HttpClient client) : base(client)
         {            
         }
-        public override async Task<Dictionary<string, object>[]> GetStats()
+        public override async Task<Dictionary<string, object>[]> GetStatsAsync()
         {
             var results = await _client.GetStringAsync(string.Empty);
             var doc = new HtmlDocument();

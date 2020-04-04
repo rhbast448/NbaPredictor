@@ -16,7 +16,7 @@ namespace NBAPredictor
             this._client = client;
         }
                 
-        public abstract Task<Dictionary<string, object>[]> GetStats();
+        public abstract Task<Dictionary<string, object>[]> GetStatsAsync();
         
     }
 }
