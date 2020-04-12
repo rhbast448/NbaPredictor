@@ -20,28 +20,10 @@ namespace NBAPredictor
             var allStats = new Dictionary<string, TeamStats>();
             foreach (var provider in _providers)
             {
-                var providerStats = await provider.GetStatsAsync();
-                foreach (var stat in providerStats)
-                {
-                    
-                    if (!allStats.TryGetValue(stat["Team"].ToString(), out var teamStat))
-                    {
-                        teamStat = new TeamStats { Name = stat["Team"].ToString() };
-                        allStats.Add(stat["Team"].ToString(), teamStat);
-                    }
-                    foreach (var item in stat)
-                    {
-                        switch (item.Key)
-                        {
-                            case "Turnover":
-                                teamStat.Turnover = (decimal)item.Value;
-                                break;
-                        }                        
-                    }
-                }
+                await provider.GetStatsAsync(allStats);
             }
-
-            return allStats.Values.ToArray();
+            var result = allStats.Values.ToArray();
+            return result;
         }
     }
 }
