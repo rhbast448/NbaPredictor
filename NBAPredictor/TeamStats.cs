@@ -4,7 +4,7 @@ using System.Text;
 
 namespace NBAPredictor
 {
-    public class TeamStats
+    public class TeamStats : IFreeThrowToFieldGoalCalcuable 
     {
         public string Name { get; set; }
         public DateTime ImportDate { get; set; }
@@ -18,9 +18,34 @@ namespace NBAPredictor
         public decimal WinLastSeven { get; set; }
         public decimal WinLastSevenAway { get; set; }
         public decimal WinLastSevenHome { get; set; }
-        public decimal FreeThrowsToFieldGoals { get; set; }
-        public decimal FreeThrowsToFieldGoalsAway { get; set; }
-        public decimal FreeThrowsToFieldGoalsHome { get; set; }
+        public decimal AttemptedFreeThrowsToFieldGoals { 
+            get {
+                    if (AttemptedFieldGoals == 0) throw new InvalidOperationException("Games with zero attempted field goals are not supported.");
+                    return AttemptedFreeThrows / AttemptedFieldGoals; 
+                } 
+        }
+        public decimal FreeThrowsToFieldGoalsAway
+        {
+            get
+            {
+                if (AttemptedFieldGoalsAway == 0) throw new InvalidOperationException("Games with zero attempted field goals are not supported.");
+                return AttemptedFreeThrowsAway / AttemptedFieldGoalsAway;
+            }
+        }
+        public decimal FreeThrowsToFieldGoalsHome
+        {
+            get
+            {
+                if (AttemptedFieldGoalsHome == 0) throw new InvalidOperationException("Games with zero attempted field goals are not supported.");
+                return AttemptedFreeThrowsHome / AttemptedFieldGoalsHome;
+            }
+        }
+        public decimal AttemptedFreeThrows { get; set; }
+        public decimal AttemptedFreeThrowsAway { get; set; }
+        public decimal AttemptedFreeThrowsHome { get; set; }
+        public decimal AttemptedFieldGoals { get; set; }
+        public decimal AttemptedFieldGoalsAway { get; set; }
+        public decimal AttemptedFieldGoalsHome { get; set; }
         public decimal OffensiveRating { get; set; }
         public decimal OffensiveRatingAway { get; set; }
         public decimal OffensiveRatingHome { get; set; }
